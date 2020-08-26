@@ -4,26 +4,27 @@
 using namespace std;
 const int WAGE_PER_HOUR = 20;
 const int FULL_DAY_HOUR = 8;
-const int EMPLOYEE_PRESENT = 1;
+const int PART_TIME_HOUR = 4;
 
 int checkAttendance()
 {
     srand(time(0));
-    int attendence = (rand() % 2);
-    if( attendence == EMPLOYEE_PRESENT ) {
-        cout << "\nEmployee is Present";
-        return attendence;
-    }
-    cout << "\nEmployee is Absent";
+    int attendence = ( rand() % 3 );
     return attendence;
-     
 }
 void calculateDailyWage()
 {
-    if ( checkAttendance() == EMPLOYEE_PRESENT ) {
-        cout << "\nEmployee Wage = "<< WAGE_PER_HOUR * FULL_DAY_HOUR << endl;
-    } else {
-        cout << "\nEmployee Wage = "<< 0 << endl;
+    switch( checkAttendance() ) {
+        case 1:
+            cout << "Employee is Full Time\n";
+            cout << "Wage = " << WAGE_PER_HOUR * FULL_DAY_HOUR;
+            break;
+        case 2:
+            cout << "Employee is Part Time\n";
+            cout << "Wage = " << WAGE_PER_HOUR * PART_TIME_HOUR;
+            break;
+        default:
+            cout << "Employee is Absent\n";
     }
 }
 int main()
