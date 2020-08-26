@@ -6,37 +6,41 @@ const int WAGE_PER_HOUR = 20;
 const int FULL_DAY_HOUR = 8;
 const int PART_TIME_HOUR = 4;
 const int WORK_DAYS_IN_MONTH = 20;
+const int WORK_HOURS_IN_MONTH = 100;
 
 int checkAttendance()
 {
     int attendence = ( rand() % 3 );
     return attendence;
 }
-int calculateDailyWage()
+int getDailyWorkingHours()
 {
-    int wage = 0;
+    int workHrs = 0;
     switch( checkAttendance() ) {
         case 1:
-            wage = WAGE_PER_HOUR * FULL_DAY_HOUR;
+            workHrs = FULL_DAY_HOUR;
             break;
         case 2:
-            wage = WAGE_PER_HOUR * PART_TIME_HOUR;
+            workHrs = PART_TIME_HOUR;
             break;
         default:
-            wage = 0;
+            workHrs = 0;
     }
-    return wage;
+    return workHrs;
 }
 void calculateMonthlyWages()
 {
     srand(time(0));
     int monthlyWage = 0;
-    for( int day = 1; day <= WORK_DAYS_IN_MONTH; day++ ) {
-        int dailyWage = calculateDailyWage(); 
-        cout << "Day"<< day <<"    wages : "<< dailyWage << endl;
-        monthlyWage += dailyWage;
+    int day = 1;
+    int workingHours = 0;
+    while( day <= WORK_DAYS_IN_MONTH && workingHours <= WORK_HOURS_IN_MONTH ) {
+        day++;
+        int hours = getDailyWorkingHours(); 
+        cout << "Day"<< day <<"    wages : "<< hours * WAGE_PER_HOUR << endl;
+        workingHours += hours;
     }
-    cout << "\n\nMonthly Wage = " << monthlyWage << endl;
+    cout << "\n\nMonthly Wage = " << workingHours * WAGE_PER_HOUR << endl;
 }
 int main()
 {
